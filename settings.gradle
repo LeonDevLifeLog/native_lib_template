@@ -1,0 +1,3 @@
+include ':nativeLib'
+include ':app'
+rootProject.name = "native_lib_example"
