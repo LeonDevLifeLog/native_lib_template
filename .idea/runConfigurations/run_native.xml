@@ -5,6 +5,8 @@
     <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     <option name="INTERPRETER_PATH" value="" />
     <option name="INTERPRETER_OPTIONS" value="" />
-    <method v="2" />
+    <method v="2">
+      <option name="Gradle.BeforeRunTask" enabled="true" tasks="externalNativeBuildDebug" externalProjectPath="$PROJECT_DIR$/nativeLib" vmOptions="" scriptParameters="" />
+    </method>
   </configuration>
 </component>
