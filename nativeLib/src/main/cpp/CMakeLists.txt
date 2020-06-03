@@ -11,6 +11,7 @@ cmake_minimum_required(VERSION 3.4.1)
 # Gradle automatically packages shared libraries with your APK.
 # set binary output folder to Android assets folder
 set(SRC_LIST
+        test_hello.cpp
         native-lib.cpp)
 add_library( # Sets the name of the library.
         native-lib
@@ -24,6 +25,7 @@ add_library( # Sets the name of the library.
 # default, you only need to specify the name of the public NDK library
 # you want to add. CMake verifies that the library exists before
 # completing its build.
+find_library(z-lib z)
 
 find_library( # Sets the name of the path variable.
         log-lib
@@ -31,8 +33,15 @@ find_library( # Sets the name of the path variable.
         # Specifies the name of the NDK library that
         # you want CMake to locate.
         log)
-set(LIB_LIST
-        ${log-lib})
+include(boost/CMakeLists.txt)
+set(SHARED_LINK_COMPONENTS
+        ${log-lib}
+        ${z-lib}
+        ${BOOST_COMPONENTS})
+set(STATIC_LINK_COMPONENTS
+        ${log-lib}
+        ${z-lib}
+        ${BOOST_STATIC_COMPONENTS})
 # Specifies libraries CMake should link to your target library. You
 # can link multiple libraries, such as libraries you define in this
 # build script, prebuilt third-party libraries, or system libraries.
@@ -42,9 +51,9 @@ target_link_libraries( # Specifies the target library.
 
         # Links the target library to the log library
         # included in the NDK.
-        ${LIB_LIST})
+        ${SHARED_LINK_COMPONENTS})
 
 #Android端可执行文件
 add_executable(main main.cpp ${SRC_LIST})
 
-target_link_libraries(main ${LIB_LIST})
+target_link_libraries(main ${STATIC_LINK_COMPONENTS})
